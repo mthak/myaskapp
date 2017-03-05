@@ -3,15 +3,21 @@ import json
 import xmltodict
 import json
 import requests
+import logging
 
-def validate_dest(stn,stnlist):
-   stnname = [lambda x: x['name'] for x in stnlist]
-   if stn not in stname:
+def validate_name(stn,stnlist):
+   stnname = [ x['name'] for x in stnlist ]
+   stfind = False
+   for items in stnname:
+       # Stattion name can be a substring of actual station name
+       if stn.lower() in items.lower():
+          stfind = True
+          logging.info("found station yeah ! %s", stfind)
+          return items
+   if not stfind:
       return None
-   else:
-      return stn
 def validate_stn(stnname,stnlist):
-    stnabbr = [lambda x: x['abbr'] for x in stnlist]
+    stnabbr = [x['abbr'] for x in stnlist]
     stndict ={}
     for items in stnlist:
         name = items['name'].lower()
@@ -19,7 +25,9 @@ def validate_stn(stnname,stnlist):
     if stnname not in stnabbr:
        stnname = stnname.lower()
        try: 
-          retstn = stndict[stnname]
+          stnname = validate_name(stnname,stnlist)
+          logging.info("Destinaton name is %s", stndict)
+          retstn = stndict[stnname.lower()]
        except KeyError,e:
          retstn = None
     else:
@@ -33,7 +41,7 @@ def getSchedule(source,dest):
     source = validate_stn(source,stnlist)
     if not source:
        return [" Invalid Source Station , Please pick a valid station"]
-    dest = validate_stn(dest,stnlist)
+    dest = validate_name(dest,stnlist)
     if not dest:
        return ["Invalid destination"]
     print "station validate" , source
@@ -83,6 +91,6 @@ def getSchedule(source,dest):
        result = ["No train available from Source to Destination"]
     return  result
 
-# my test playground 
-#ret = getSchedule("Colim","Walnut Creek")
+#my test playground 
+#ret = getSchedule("Dublin","Daly City")
 #print ret
