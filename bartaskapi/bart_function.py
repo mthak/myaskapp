@@ -39,6 +39,7 @@ def get_posts_intent_handler(request):
     dest = request.slots['destination']
     print "station is ", source, dest
     myoutput = mybart.getSchedule(source, dest)
+    #data = myoutput['time']
     print " i got output " , myoutput
     return alexa.create_response(message='' .join(str(myoutput)),end_session=True)
                                 
