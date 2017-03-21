@@ -47,12 +47,16 @@ def get_posts_intent_handler(request):
 
 @alexa.intent('AMAZON.HelpIntent')
 def help_intent_handler(request):
-    st_list = [cat for cat in mybart.stations]
+    st_list = str(mybart.stations)
     message = ["You can ask for schedule in following stations - ",
                st_list]
     return alexa.create_response(message=' '.join(message))
 
 
 @alexa.intent('AMAZON.StopIntent')
+def stop_intent_handler(request):
+    return alexa.create_response(message="Goodbye!")
+
+@alexa.intent('AMAZON.CancelIntent')
 def stop_intent_handler(request):
     return alexa.create_response(message="Goodbye!")

@@ -5,6 +5,8 @@ import json
 import requests
 import logging
 
+stations = ['12th St. Oakland City Center', '16th St. Mission', '19th St. Oakland', '24th St. Mission', 'Ashby', 'Balboa Park', 'Bay Fair', 'Castro Valley', 'Civic Center/UN Plaza', 'Coliseum', 'Colma', 'Concord', 'Daly City', 'Downtown Berkeley', 'Dublin/Pleasanton', 'El Cerrito del Norte', 'El Cerrito Plaza', 'Embarcadero', 'Fremont', 'Fruitvale', 'Glen Park', 'Hayward', 'Lafayette', 'Lake Merritt', 'MacArthur', 'Millbrae', 'Montgomery St.', 'North Berkeley', 'North Concord/Martinez', u"Oakland Int'l Airport", 'Orinda', 'Pittsburg/Bay Point', 'Pleasant Hill/Contra Costa Centre', 'Powell St.', 'Richmond', 'Rockridge', 'San Bruno', u"San Francisco Int'l Airport", 'San Leandro', 'South Hayward', 'South San Francisco', 'Union City', 'Walnut Creek', 'West Dublin/Pleasanton', 'West Oakland']
+
 def validate_name(stn,stnlist):
    stnname = [ x['name'] for x in stnlist ]
    stfind = False
