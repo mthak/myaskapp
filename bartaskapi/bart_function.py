@@ -19,12 +19,13 @@ def default_handler(request):
 
 @alexa.request("LaunchRequest")
 def launch_request_handler(request):
-    return alexa.create_response(message="Welcome to my Bart App. We can tell you more information obout bart schedules")
+    return alexa.create_response(message="Welcome to my Bart App. We can tell you more information about bart schedules       for example bart from Fremont to Daly City ",
+           reprompt_message = "Would you like to know more?")
 
 
 @alexa.request(request_type="SessionEndedRequest")
 def session_ended_request_handler(request):
-    return alexa.create_response(message="Goodbye!")
+    return alexa.create_response(message="Goodbye!",end_session=True)
 
 
 @alexa.intent('GetSchedule')
@@ -50,13 +51,14 @@ def help_intent_handler(request):
     st_list = str(mybart.stations)
     message = ["You can ask for schedule in following stations - ",
                st_list]
-    return alexa.create_response(message=' '.join(message))
+    return alexa.create_response(message=' '.join(message),
+                            reprompt_message='Would you like to know more about bart schedule?')
 
 
 @alexa.intent('AMAZON.StopIntent')
 def stop_intent_handler(request):
-    return alexa.create_response(message="Goodbye!")
+    return alexa.create_response(message="Goodbye!",end_session=True)
 
 @alexa.intent('AMAZON.CancelIntent')
 def stop_intent_handler(request):
-    return alexa.create_response(message="Goodbye!")
+    return alexa.create_response(message="Goodbye!",end_session=True)
